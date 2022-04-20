@@ -8,6 +8,11 @@ export const useWeatherAjax = (city) => {
     const [isLoading, setLoading] = useState(true);
     const [onError, setError] = useState(false);
     const [data, setData] = useState(null);
+    const [lastCall, setLastCall] = useState(new Date());
+
+    const reload = () => {
+        setLastCall(new Date());
+    };
 
     useEffect(() => {
         // Reset du state
@@ -25,7 +30,7 @@ export const useWeatherAjax = (city) => {
             }
         }).then(({ data }) => {
             setData({
-                id: 2792413,
+                id: data.id,
                 city: data.name,
                 country: data.sys.country,
                 weather: data.weather[0].description,
@@ -38,9 +43,9 @@ export const useWeatherAjax = (city) => {
         }).finally(() => {
             setLoading(false);
         });
-    }, [city]);
+    }, [city, lastCall]);
 
     console.log('State Hook', data, onError, isLoading);
 
-    return [data, onError, isLoading];
+    return [data, onError, isLoading, reload];
 }; 

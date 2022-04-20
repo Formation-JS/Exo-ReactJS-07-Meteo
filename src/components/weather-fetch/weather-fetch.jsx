@@ -1,17 +1,23 @@
 import { useWeatherAjax } from '../../hooks/weather-hook';
+import ErrorDisplay from '../error-display/error-display';
 import LoadingDisplay from '../loading-display/loading-display';
+import WeatherDisplay from '../weather-display/weather-display';
 
 const WeatherFetch = ({ city }) => {
-    const [data, error, isLoading] = useWeatherAjax(city);
+    const [data, error, isLoading, reload] = useWeatherAjax(city);
+
+    const handleRefresh = () => {
+        reload();
+    };
 
     return (
         <div>
             {isLoading ? (
                 <LoadingDisplay />
             ) : error ? (
-                <p>Error :p</p>
+                <ErrorDisplay errorMessage='Ville non trouvé' />
             ) : data && (
-                <code>{JSON.stringify(data)}</code>
+                <WeatherDisplay {...data} onCallRefresh={handleRefresh} />
             )}
         </div>
     );
