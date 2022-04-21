@@ -8,7 +8,8 @@ const citySchema = yup.object({
 
 const CitySearch = ({ onSearch }) => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
-        resolver: yupResolver(citySchema)
+        resolver: yupResolver(citySchema),
+        reValidateMode: 'onSubmit'
     });
 
     const onSubmit = (data) => {
