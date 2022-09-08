@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-const WEATHER_URL = 'http://api.openweathermap.org/data/2.5/weather';
+const WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather';
 
 export const useWeatherAjax = (city) => {
     // Le state du Hook
